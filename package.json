@@ -1,0 +1,16 @@
+{
+  "name": "hackernews-node-ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:malmike/hackernews-node-ts.git",
+  "author": "Michael Male <michael.male@andela.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.18",
+    "typescript": "^3.2.2"
+  },
+  "scripts": {
+    "tsc": "tsc"
+  }
+}
