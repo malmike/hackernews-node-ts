@@ -1,16 +1,5 @@
 const {GraphQLServer} = require('graphql-yoga');
-
-const typeDefs = `
-  type Query {
-    info: String!
-    feed: [Link]!
-  }
-  type Link {
-    id: ID!
-    description: String!
-    url: String!
-  }
-`
+const path = require('path');
 
 const links = [{
   id: 'link-0',
@@ -25,9 +14,10 @@ const resolvers = {
   },
 }
 
+const relativePath = path.basename(__dirname);
 const server = new GraphQLServer({
-  typeDefs,
-  resolvers,
-})
+    typeDefs: `./${relativePath}/graphql/schema.graphql`,
+    resolvers,
+});
 
 server.start(() => console.log(`Server is running on http://localhost:4000`));
