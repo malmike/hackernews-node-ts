@@ -13,6 +13,7 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "start": "tsc && node dist/index.js"
+    "copy": "cd ./src && find . -name '*.graphql' -type f -exec rsync -R {} ../dist/ \\; && cd ..",
+    "start": "tsc && npm run copy && node dist/index.js"
   }
 }
