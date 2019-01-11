@@ -1,38 +1,35 @@
-const {GraphQLServer} = require('graphql-yoga');
-const { prisma } = require('./generated/prisma-client');
+import { request } from "http";
 const path = require('path');
+const {GraphQLServer} = require('graphql-yoga');
+
+import * as Mutation from './resolvers/Mutation';
+import * as Query from './resolvers/Query';
+import * as User from './resolvers/User';
+import * as Link from './resolvers/Link';
+import { prisma } from './generated/prisma-client';
+
+
+if(process.env.NODE_ENV !== 'production'){
+  require('dotenv').load();
+}
 
 const resolvers = {
-  Query: {
-    info: () => `This is the API of a hackernews clone`,
-    feed: (root, args, context, info) => {
-      return context.prisma.links()
-    },
-  },
-  Mutation: {
-    createLink: (parent, args, context) => {
-      return context.prisma.createLink({
-        description: args.description,
-        url: args.url,
-      });
-    },
-    updateLink: (parent, args, context) => {
-      return context.prisma.updateLink({
-        url: args.url,
-        description: args.description
-      }, {url: "www.prisma.io"})
-    },
-    deleteLink: (parent, args, context) => {
-      return context.prisma.deleteLink({id: args.id})
-    }
-  }
+  Query,
+  Mutation,
+  User,
+  Link
 }
 
 const relativePath = path.basename(__dirname);
 const server = new GraphQLServer({
     typeDefs: `./${relativePath}/graphql/schema.graphql`,
     resolvers,
-    context: {prisma}
+    context: request => {
+      return {
+        ...request,
+        prisma
+      }
+    }
 });
 
 server.start(() => console.log(`Server is running on http://localhost:4000`));
