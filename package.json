@@ -8,13 +8,21 @@
   "dependencies": {
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.18",
+    "bcryptjs": "^2.4.3",
     "graphql-yoga": "^1.16.9",
+    "jsonwebtoken": "^8.4.0",
     "prisma-client-lib": "^1.23.4",
     "typescript": "^3.2.2"
   },
   "scripts": {
     "tsc": "tsc",
     "copy": "cd ./src && find . -name '*.graphql' -type f -exec rsync -R {} ../dist/ \\; && cd ..",
-    "start": "tsc && npm run copy && node dist/index.js"
+    "start": "tsc && npm run copy && node dist/index.js",
+    "start-dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts"
+  },
+  "devDependencies": {
+    "dotenv": "^6.2.0",
+    "nodemon": "^1.18.9",
+    "ts-node": "^7.0.1"
   }
 }
