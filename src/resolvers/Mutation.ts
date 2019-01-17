@@ -7,7 +7,7 @@ export async function createLink(parent, args, context){
   return context.prisma.createLink({
     description: args.description,
     url: args.url,
-    postedBy: {connect: {id: userId}}
+    postedBy: { connect: { id: userId } }
   });
 }
 
@@ -41,7 +41,7 @@ export async function login(parent, args, context, info){
   if(!valid){
     throw new Error('Invalid password');
   }
-  
+
   const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET )
   return {token, user}
 }
