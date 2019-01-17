@@ -7,6 +7,7 @@ import * as Query from './resolvers/Query';
 import * as User from './resolvers/User';
 import * as Link from './resolvers/Link';
 import * as Subscription from './resolvers/Subscription';
+import * as Vote from './resolvers/Vote';
 import { prisma } from './generated/prisma-client';
 
 
@@ -19,7 +20,8 @@ const resolvers = {
   Mutation,
   Subscription,
   User,
-  Link
+  Link,
+  Vote
 }
 
 const relativePath = path.basename(__dirname);
